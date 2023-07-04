@@ -1,11 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Field } from "../field/Field";
+import { useNavigate } from "react-router-dom";
 import { Button } from "../button/Button";
 
 export const FormGenerator = () => {
   const [keyword, setKeyWord] = useState("");
   const [location, setLocation] = useState("");
   const [leads, setLeads] = useState("10");
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      navigate("/");
+    }
+  }, [navigate]);
 
   const onChangeKeyWord = (event: React.ChangeEvent<HTMLInputElement>) => {
     setKeyWord(event.target.value);
