@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FormLogin } from "./components/formLogin/FormLogin";
 import { Routes, Route } from "react-router-dom";
 import "./styles/main.scss";
@@ -10,7 +10,7 @@ import { FormMailVerifier } from "./components/formEmail/FormEmail";
 function App() {
   return (
     <div>
-      {localStorage.getItem("token") && <Header />}
+      <Header />
       <Routes>
         <Route path="/" element={<FormLogin />} />
         <Route path="/singIn" element={<FormSingIn />} />
