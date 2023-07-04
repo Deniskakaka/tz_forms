@@ -1,0 +1,29 @@
+.wrapper {
+  & h1 {
+    text-align: center;
+  }
+}
+
+.form_verifier {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  margin: 100px auto;
+}
+
+.verifier_field {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: -20px;
+
+  & input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    height: 25px;
+    border: none;
+    border-radius: 10px;
+    background-color: #f7f6f9;
+  }
+}

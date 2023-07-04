@@ -1,0 +1,45 @@
+.filedFormGenerator {
+  display: flex;
+  align-items: center;
+
+  & input {
+    height: 23px;
+    margin: 0 20px;
+    border: none;
+    border-radius: 10px;
+  }
+}
+
+.generator_item {
+  display: flex;
+  align-items: center;
+}
+
+.leads_num {
+  width: 146px;
+  margin-left: 10px;
+}
+
+.wrapper_generator {
+  & h1 {
+    text-align: center;
+  }
+
+  & p {
+    text-align: center;
+  }
+
+  & form {
+    width: fit-content;
+    margin: 100px auto;
+    background-color: #f7f6f9;
+    padding: 20px;
+    border-radius: 10px;
+
+    & select {
+      border: none;
+      border-radius: 10px;
+      padding: 5px;
+    }
+  }
+}
