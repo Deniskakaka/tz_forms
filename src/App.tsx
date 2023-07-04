@@ -17,7 +17,7 @@ function App() {
     if (token) {
       navigate("/generator");
     }
-  }, []);
+  }, [navigate]);
 
   return (
     <div>
