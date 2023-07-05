@@ -8,6 +8,7 @@ import {
   verificationName,
 } from "../../helper";
 import { Button } from "../button/Button";
+import { useFormValidation } from "../../hooks/ValidForm";
 
 export const FormLogin = () => {
   const [name, setName] = useState<string>("");
@@ -15,11 +16,7 @@ export const FormLogin = () => {
   const [listUsers, setListUsers] = useState<
     { name: string; email: string; password: string }[]
   >([]);
-  const [validForm, setValidForm] = useState({
-    name: true,
-    password: true,
-  });
-
+  const { validForm, validateField, setFieldValue } = useFormValidation();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,36 +33,24 @@ export const FormLogin = () => {
     setPassword(event.target.value);
   };
 
-  const validField = (
-    value: string,
-    key: keyof typeof validForm,
-    func: (value: string) => boolean
-  ): boolean => {
-    setValidForm({
-      ...validForm,
-      [key]: func(value),
-    });
-
-    return func(value);
-  };
-
   const validName = (event: React.ChangeEvent<HTMLInputElement>) => {
-    validField(event.target.value, "name", validationName);
+    validateField(event.target.value, "name", validationName);
   };
 
   const validPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
-    validField(event.target.value, "password", validatePassword);
+    validateField(event.target.value, "password", validatePassword);
   };
 
   const onSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
 
-    setValidForm({
-      name: !!verificationName(name, listUsers),
-      password: verificationName(name, listUsers)
+    setFieldValue(!!verificationName(name, listUsers), "name");
+    setFieldValue(
+      verificationName(name, listUsers)
         ? verificationName(name, listUsers).password === password
         : false,
-    });
+      "password"
+    );
 
     const user = verificationName(name, listUsers);
     if (!!user) {

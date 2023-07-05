@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import { FormLogin } from "./components/formLogin/FormLogin";
 import { Routes, Route } from "react-router-dom";
 import "./styles/main.scss";

@@ -7,16 +7,13 @@ import {
   validatePassword,
 } from "../../helper";
 import { Button } from "../button/Button";
+import { useFormValidation } from "../../hooks/ValidForm";
 
 export const FormSingIn = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [validForm, setValidForm] = useState({
-    email: true,
-    name: true,
-    password: true,
-  });
+  const { validForm, validateField, setFieldValue } = useFormValidation();
 
   const navigate = useNavigate();
 
@@ -32,29 +29,16 @@ export const FormSingIn = () => {
     setPassword(event.target.value);
   };
 
-  const validField = (
-    value: string,
-    key: keyof typeof validForm,
-    func: (value: string) => boolean
-  ): boolean => {
-    setValidForm({
-      ...validForm,
-      [key]: func(value),
-    });
-
-    return func(value);
-  };
-
   const validEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
-    validField(event.target.value, "email", validationEmail);
+    validateField(event.target.value, "email", validationEmail);
   };
 
   const validName = (event: React.ChangeEvent<HTMLInputElement>) => {
-    validField(event.target.value, "name", validationName);
+    validateField(event.target.value, "name", validationName);
   };
 
   const validPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
-    validField(event.target.value, "password", validatePassword);
+    validateField(event.target.value, "password", validatePassword);
   };
 
   const onSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -63,9 +47,9 @@ export const FormSingIn = () => {
     const users = JSON.parse(localStorage.getItem("users") as string);
 
     if (
-      validField(email, "email", validationEmail) &&
-      validField(name, "name", validationName) &&
-      validField(password, "password", validatePassword)
+      validateField(email, "email", validationEmail) &&
+      validateField(name, "name", validationName) &&
+      validateField(password, "password", validatePassword)
     ) {
       if (
         users &&
@@ -74,10 +58,7 @@ export const FormSingIn = () => {
             user.email === email
         )
       ) {
-        setValidForm({
-          ...validForm,
-          email: false,
-        });
+        setFieldValue(false, "email");
       } else {
         if (localStorage.getItem("users")) {
           const users = JSON.parse(localStorage.getItem("users") as string);
